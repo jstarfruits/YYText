@@ -2014,6 +2014,19 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     [self _scrollRangeToVisible:textRange];
 }
 
+- (void)insertAttributedText:(NSAttributedString *)attributedText {
+	NSUInteger endPosition = _selectedTextRange.start.offset + attributedText.length;
+	NSMutableAttributedString *text = _innerText.mutableCopy;
+	[text replaceCharactersInRange:_selectedTextRange.asRange withAttributedString:attributedText];
+	self.attributedText = text;
+	YYTextPosition *pos = [self _correctedTextPosition:[YYTextPosition positionWithOffset:endPosition]];
+	YYTextRange *range = [_innerLayout textRangeByExtendingPosition:pos];
+	range = [self _correctedTextRange:range];
+	if (range) {
+		self.selectedRange = NSMakeRange(range.end.offset, 0);
+	}
+}
+
 #pragma mark - Property
 
 - (void)setText:(NSString *)text {

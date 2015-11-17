@@ -248,6 +248,11 @@
 - (void)scrollRangeToVisible:(NSRange)range;
 
 /**
+ insertText with attributes
+ */
+- (void)insertAttributedText:(NSAttributedString *)attributedText;
+
+/**
  The current selection range of the receiver.
  */
 @property (nonatomic, assign) NSRange selectedRange;
