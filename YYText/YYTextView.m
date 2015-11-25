@@ -3289,14 +3289,15 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
         [self _saveToUndoStack];
         [self _resetRedoStack];
     }
-    
-    BOOL needApplyHolderAttribute = NO;
-    if (_innerText.length > 0) {
-        [self _updateAttributesHolder];
-    } else {
-        needApplyHolderAttribute = YES;
-    }
-    
+	
+	BOOL needApplyHolderAttribute = NO;
+	if (_innerText.length > 0 && !_state.typingAttributesOnce) {
+		[self _updateAttributesHolder];
+	} else {
+		_state.typingAttributesOnce = NO;
+		needApplyHolderAttribute = YES;
+	}
+	
     if (_selectedTextRange.asRange.length > 0) {
         [self replaceRange:_selectedTextRange withText:@""];
     }

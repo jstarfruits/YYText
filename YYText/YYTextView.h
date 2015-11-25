@@ -124,20 +124,20 @@
  When a range of text is detected by the `dataDetectorTypes`, this value would be
  used to modify the original attributes in the range.
  */
-@property (nonatomic, copy) NSDictionary *linkTextAttributes;
+@property (nonatomic, copy) NSDictionary<NSString *, id> *linkTextAttributes;
 
 /**
  The attributes to apply to links at highlight state. Default is a gray border.
  When a range of text is detected by the `dataDetectorTypes` and the range was touched by user,
  this value would be used to modify the original attributes in the range.
  */
-@property (nonatomic, copy) NSDictionary *highlightTextAttributes;
+@property (nonatomic, copy) NSDictionary<NSString *, id> *highlightTextAttributes;
 
 /**
  The attributes to apply to new text being entered by the user.
  When the text view's selection changes, this value is reset automatically.
  */
-@property (nonatomic, copy) NSDictionary *typingAttributes;
+@property (nonatomic, copy) NSDictionary<NSString *, id> *typingAttributes;
 
 /**
  The styled text displayed by the text view.
