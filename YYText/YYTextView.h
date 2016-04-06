@@ -251,6 +251,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)scrollRangeToVisible:(NSRange)range;
 
 /**
+ insertText with attributes
+ */
+- (void)insertAttributedText:(NSAttributedString *)attributedText;
+
+/**
  The current selection range of the receiver.
  */
 @property (nonatomic) NSRange selectedRange;
