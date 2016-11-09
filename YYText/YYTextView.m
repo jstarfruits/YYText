@@ -1073,7 +1073,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
         }
     }
     
-    if (range.asRange.length == 0) {
+    if (!range || range.asRange.length == 0) {
         range = [_innerLayout textRangeByExtendingPosition:position inDirection:UITextLayoutDirectionRight offset:1];
         range = [self _correctedTextRange:range];
         if (range.asRange.length == 0) {
@@ -1795,7 +1795,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
         NSString *canonical = [NSLocale canonicalLocaleIdentifierFromString:preferred];
         if (canonical.length == 0) canonical = @"en";
         strings = dic[canonical];
-        if (!strings  && [canonical containsString:@"_"]) {
+        if (!strings  && ([canonical rangeOfString:@"_"].location != NSNotFound)) {
             NSString *prefix = [canonical componentsSeparatedByString:@"_"].firstObject;
             if (prefix.length) strings = dic[prefix];
         }
@@ -2377,6 +2377,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
             _placeholderAttributedText = atr;
         }
     }
+    _placeholderText = [_placeholderAttributedText yy_plainTextForRange:NSMakeRange(0, _placeholderAttributedText.length)];
     [self _commitPlaceholderUpdate];
 }
 
@@ -3731,7 +3732,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     } else if ([fontName.lowercaseString isEqualToString:@"system bold"]) {
         font = [UIFont boldSystemFontOfSize:font.pointSize];
     } else {
-        if ([self fontIsBold_:font] && ![fontName.lowercaseString containsString:@"bold"]) {
+        if ([self fontIsBold_:font] && ([fontName.lowercaseString rangeOfString:@"bold"].location == NSNotFound)) {
             font = [UIFont fontWithName:fontName size:font.pointSize];
             font = [self boldFont_:font];
         } else {
@@ -3771,7 +3772,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     } else if ([fontName.lowercaseString isEqualToString:@"system bold"]) {
         font = [UIFont boldSystemFontOfSize:font.pointSize];
     } else {
-        if ([self fontIsBold_:font] && ![fontName.lowercaseString containsString:@"bold"]) {
+        if ([self fontIsBold_:font] && ([fontName.lowercaseString rangeOfString:@"bold"].location == NSNotFound)) {
             font = [UIFont fontWithName:fontName size:font.pointSize];
             font = [self boldFont_:font];
         } else {
